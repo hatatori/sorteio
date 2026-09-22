@@ -1,71 +1,100 @@
-function quantidade_acertos_linha(res, lin){
+
+
+const tag_resultado = document.getElementById('tag_resultado')
+const tag_apostas = document.getElementById('tag_apostas')
+const tag_render = document.getElementById('tag_render')
+
+function quantidade_acertos_linha(res, lin) {
     res = res.split(' ')
     lin = lin.split(' ')
     let s = 0
-    return lin.filter(e=>res.includes(e)).length
+    return lin.filter(e => res.includes(e)).length
 }
 
-function joinspan(result, lin){
+function joinspan(result, lin) {
     result = result.split(' ')
     lin = lin.split(' ')
-    
-    if(!lin[lin.length-1] == '')
+
+    if (!lin[lin.length - 1] == '')
         lin.push('')
-   
-        
-    return lin.map(e=> {
-        if(e!="")
-        return result.includes(e) ? `<span class='active'>${e}</span>` : `<span>${e}</span>`
-    }   
+
+
+    return lin.map(e => {
+        if (e != "")
+            return result.includes(e) ? `<span class='active'>${e}</span>` : `<span class='desactive'>${e}</span>`
+    }
     ).join('')
 }
 
-let resultado = "01 02 04 07 08 10 12 13 15 17 19 20 22 24 25"
+function random6(min = 1, max = 60, lines = 4) {
+    // const min = 1
+    // const max = 60
+    const text = []
+    for (let j = 0; j < lines; j++) {
+        const lista = []
+        for (let i = 0; i < 6; i++) {
+            const randomNumber = Math.floor(Math.random() * max) + min
+            lista.push(randomNumber)
+            // text.push(randomNumber)
+        }
 
-let apostas = `01 03 04 07 09 10 11 15 17 18 19 20 22 24 25 
-02 03 05 06 07 10 13 14 15 16 17 18 20 22 25 
-01 03 04 05 07 08 09 11 12 14 17 19 20 21 25 
-02 03 05 08 09 12 13 14 15 16 17 18 20 21 23 
-02 05 10 12 13 15 16 17 18 19 20 21 23 24 25 
-01 02 03 04 05 08 10 15 16 17 18 19 22 23 25 
-02 06 08 09 10 12 14 15 18 19 20 21 22 23 24 
-01 05 06 08 09 10 11 12 13 14 15 16 17 18 22 
-01 04 05 06 08 09 10 11 12 13 14 17 19 20 21 
-01 02 03 05 06 08 10 11 14 15 16 19 20 23 25 
-01 02 04 05 06 09 10 11 13 15 16 19 20 22 24 
-01 03 05 07 08 09 12 14 17 18 19 21 22 23 24 
-01 03 04 05 06 07 09 11 13 17 18 19 21 23 25 
-01 02 03 08 09 11 12 13 14 16 17 18 21 23 25 
-03 04 06 08 11 12 13 15 16 17 18 20 21 22 23 
-01 07 08 09 11 12 13 14 15 16 18 20 22 23 25 
-02 05 06 08 09 10 11 13 14 15 18 21 22 24 25 
-02 03 05 08 09 10 11 12 13 14 15 16 17 18 25`
 
-function render(){
+        lista.sort((x, y) => x - y)
+        lista.map(e => text.push(e.toString().padStart(2, "0")))
+
+        if (j < lines - 1) text.push(";");
+
+        // text.push(randomNumber.toString().padStart(2, "0"))
+    }
+
+
+    return text.join(" ").replace(/ ; /g, "\n")
+
+}
+
+let resultado = random6(min = 1, max = 60, lines = 1)
+let apostas = random6()
+tag_resultado.value = resultado
+tag_apostas.value = apostas
+
+function randomize() {
+    let resultado = random6(min = 1, max = 60, lines = 1)
+    apostas = random6()
+    tag_resultado.value = resultado
+    tag_apostas.value = apostas
+    tag_render.innerHTML = render()
+}
+
+function randomize2(l) {
+    resultado = random6(min = 1, max = 60, lines = 1)
+    apostas = random6(min = 1, max = 60, lines = l)
+    tag_resultado.value = resultado
+    tag_apostas.value = apostas
+    tag_render.innerHTML = render()
+}
+
+function render() {
     let t1 = apostas
-    t1[t1.length-1] = "x"
-    console.log(t1)
+    t1[t1.length - 1] = "x"
 
-    t1 = t1.split("\n").map(e=>{
+    t1 = t1.split("\n").map(e => {
         let txt = e.split(" ").join(" ")
-        return joinspan(resultado, txt)+"<b>"+quantidade_acertos_linha(resultado, txt)+"</b>"
+        return joinspan(resultado, txt) + "<span class='result'>" + quantidade_acertos_linha(resultado, txt) + "</span>"
     }).join("<br>")
     return t1
 }
 
+tag_render.innerHTML = render()
 
-// lotofacil_resultado.innerHTML = render()
-lotofacil_resultado.innerHTML = render()
+tag_apostas.value = apostas
 
-lotofacil_apostas.value = apostas
-
-lotofacil_apostas.onkeyup = function(){
-    lotofacil_resultado.innerHTML = ""
-    apostas = lotofacil_apostas.value
-    lotofacil_resultado.innerHTML = render()
+tag_apostas.onkeyup = function () {
+    tag_render.innerHTML = ""
+    apostas = tag_apostas.value
+    tag_render.innerHTML = render()
 }
 
-tag_resultado.onkeyup=function(){
+tag_resultado.onkeyup = function () {
     resultado = this.value
-    lotofacil_resultado.innerHTML = render()
+    tag_render.innerHTML = render()
 }

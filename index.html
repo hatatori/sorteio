@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +8,37 @@
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- logofácil -->
-    <h1>Verifique sorteio</h1>
-    <input id="tag_resultado" type="text" value="01 02 04 07 08 10 12 13 15 17 19 20 22 24 25"><br>
+
+
+    <div class="group">
+        
+
+        <div class="bloco2">
+            <h2>Resultado do sorteio</h2>
+            <input id="tag_resultado" type="text" value=""><br>
+        </div>
+
+        <div class="bloco1">
+            <h2>Números da cartela</h2>
+            <textarea id='tag_apostas' cols="50" rows="5"></textarea>
+        </div>
+    </div>
+
+    
+    
+    <!-- <button onclick="randomize()">Randomize 6</button> -->
+    <button onclick="randomize2(6)">R ( 6 )</button>
+    <button onclick="randomize2(10)">R ( 10 )</button>
+    <button onclick="randomize2(20)">R ( 20 )</button>
+    <button onclick="randomize2(100)">R ( 100 )</button>
+    <button onclick="randomize2(500)">R ( 500 )</button>
+
     <section class="conferir">
-        <textarea id='lotofacil_apostas' cols="50" rows="20"></textarea>
-        <div id="lotofacil_resultado">x</div>
+        <div id="tag_render">x</div>
     </section>
 </body>
+
 </html>
