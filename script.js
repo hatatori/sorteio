@@ -4,6 +4,16 @@ const tag_resultado = document.getElementById('tag_resultado')
 const tag_apostas = document.getElementById('tag_apostas')
 const tag_render = document.getElementById('tag_render')
 
+function numerosAleatorios(min, max, quantidade) {
+    const numeros = new Set();
+
+    while (numeros.size < quantidade) {
+        numeros.add(Math.floor(Math.random() * max) + min);
+    }
+
+    return [...numeros].sort((a, b) => a - b);
+}
+
 function quantidade_acertos_linha(res, lin) {
     res = res.split(' ')
     lin = lin.split(' ')
@@ -32,21 +42,10 @@ function random6(min = 1, max = 60, lines = 4) {
     const text = []
     for (let j = 0; j < lines; j++) {
         const lista = []
-        for (let i = 0; i < 6; i++) {
-            const randomNumber = Math.floor(Math.random() * max) + min
-            lista.push(randomNumber)
-            // text.push(randomNumber)
-        }
-
-
-        lista.sort((x, y) => x - y)
+        numerosAleatorios(min, max, 6).map(e => lista.push(e))
         lista.map(e => text.push(e.toString().padStart(2, "0")))
-
         if (j < lines - 1) text.push(";");
-
-        // text.push(randomNumber.toString().padStart(2, "0"))
     }
-
 
     return text.join(" ").replace(/ ; /g, "\n")
 
