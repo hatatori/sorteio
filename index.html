@@ -13,28 +13,52 @@
     <!-- logofácil -->
 
 
-    <div class="group">
-        
+    <main>
+        <div class="group">
 
-        <div class="bloco2">
-            <h2>Resultado do sorteio</h2>
-            <input id="tag_resultado" type="text" value=""><br>
+
+            <div class="bloco2">
+                <h2>Resultado do sorteio</h2>
+                <input id="tag_resultado" type="text" value=""><br>
+            </div>
+
+            <div class="bloco1">
+                <h2>Números da cartela</h2>
+                <textarea id='tag_apostas' cols="50" rows="5"></textarea>
+            </div>
         </div>
 
-        <div class="bloco1">
-            <h2>Números da cartela</h2>
-            <textarea id='tag_apostas' cols="50" rows="5"></textarea>
-        </div>
-    </div>
 
-    
-    
-    <!-- <button onclick="randomize()">Randomize 6</button> -->
-    <button onclick="randomize2(6)">R ( 6 )</button>
-    <button onclick="randomize2(10)">R ( 10 )</button>
-    <button onclick="randomize2(20)">R ( 20 )</button>
-    <button onclick="randomize2(100)">R ( 100 )</button>
-    <button onclick="randomize2(500)">R ( 500 )</button>
+        <div class="shownext">
+            <label>
+                <p>Random <img src="./imgs/arrow_down.svg"> </p>
+                <input checked="true" id="next1" class="next" type="checkbox">
+            </label>
+        </div>
+
+        <div>
+            <div class="contentslider">
+                <input class="slider" type="range" id="tag_range1" min="1" max="99" value="3">
+                <p class="val">3</p>
+            </div>
+            <div class="contentslider">
+                <input class="slider" type="range" id="tag_range2" min="6" max="30" value="4">
+                <p class="val">4</p>
+            </div>
+            <div>
+                <!-- <button onclick="randomize()">Randomize 6</button> -->
+                <button onclick="randomize3({lines: 3, quantity: 6})">R ( 3, 6 )</button>
+                <button onclick="randomize3({lines: 3, quantity: 12})">R ( 3, 12 )</button>
+                <button onclick="randomize3({lines: 5, quantity: 20})">R ( 5, 20 )</button>
+                <button onclick="randomize3({lines: 20, quantity: 20})">R ( 20, 20 )</button>
+                <button onclick="randomize3({lines: 30, quantity: 20})">R ( 30, 20 )</button>
+                <button onclick="randomize3({lines: 50, quantity: 20})">R ( 50, 20 )</button>
+                <button onclick="randomize3({lines: 100, quantity: 20})">R ( 100, 20 )</button>
+
+            </div>
+        </div>
+    </main>
+
 
     <section class="conferir">
         <div id="tag_render">x</div>
